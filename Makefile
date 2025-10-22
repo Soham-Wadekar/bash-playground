@@ -9,8 +9,7 @@ $(SCRIPTS): setup
 
 restart: stop start
 
-help:
-	@chmod +x ./scripts/help.sh
+help: setup
 	@./scripts/help.sh $(word 2,$(MAKECMDGOALS))
 
 %:
