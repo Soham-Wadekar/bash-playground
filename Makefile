@@ -1,6 +1,17 @@
 setup:
-	@chmod +x *.sh
-	@./setup.sh
+	@chmod +x ./scripts/*.sh
+	@./scripts/setup.sh
 
-clean:
-	@./cleanup.sh
+SCRIPTS := clean start stop
+
+$(SCRIPTS): setup
+	@./scripts/$@.sh
+
+restart: stop start
+
+help:
+	@chmod +x ./scripts/help.sh
+	@./scripts/help.sh $(word 2,$(MAKECMDGOALS))
+
+%:
+	@:
