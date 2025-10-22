@@ -3,10 +3,11 @@
 # This file produces an endless log of timestamps every 3 seconds and stores them inside a log file
 
 set -e
+trap 'echo "$(date +"%H:%M:%S") | Playground is inactive" >> "$1"; exit 0' SIGTERM
 
+echo "$(date +"%H:%M:%S") | Playground started" >> $1
 while true; do
     DATE=$(date +"%H:%M:%S")
-    TYPE=$(shuf -e -n1 DEBUG ERROR INFO WARN)
-    echo "$TYPE | $DATE | This is a test log" >> $1
+    echo "$DATE | Playground is active" >> $1
     sleep 3
 done
