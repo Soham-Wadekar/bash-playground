@@ -6,5 +6,3 @@ source ./config/playground.env
 
 ./scripts/stop.sh
 rm -rf $PROJECT_HOME
-
-chmod -x scripts/*.sh
