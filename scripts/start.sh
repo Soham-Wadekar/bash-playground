@@ -2,10 +2,12 @@
 
 source ./config/playground.env
 
-./services/heartbeat "$LOG_DIR/heartbeat.log" &
-echo "[$!] Starting heartbeat service"
-echo $! > $PID_DIR/heartbeat.pid
+./scripts/stop.sh
 
-./services/log_generator "$LOG_DIR/generator.log" &
-echo "[$!] Starting log generator service"
-echo $! > $PID_DIR/generator.pid
+SERVICES=$(ls ./services/)
+
+for service in ${SERVICES[@]}; do
+    ./services/$service "$LOG_DIR/$service.log" &
+    echo "[$!] Starting $service service"
+    echo $! > $PID_DIR/$service.pid
+done
