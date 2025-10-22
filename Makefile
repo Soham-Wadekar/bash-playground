@@ -12,6 +12,7 @@ $(SCRIPTS): setup
 	@./scripts/$@.sh
 
 restart: stop start
+	@echo -n
 
 # help: setup
 # 	@./scripts/help.sh $(word 2,$(MAKECMDGOALS))

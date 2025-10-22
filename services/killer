@@ -1,0 +1,21 @@
+#!/bin/bash
+sleep 5
+source ./config/playground.env
+
+while true; do
+    # Pick a random service (excluding self and monitor)
+    SERVICE=$(ls ./services/ | grep -Ev "monitor|killer" | shuf -n1)
+    PID_FILE="$PID_DIR/$SERVICE.pid"
+
+    if [[ -r "$PID_FILE" ]]; then
+        RANDOM_PID=$(cat "$PID_FILE" 2>/dev/null)
+
+        if ps -p "$RANDOM_PID" > /dev/null 2>&1; then
+            printf "%s | %-8s | %-10s | %s\n" "$(date +%H:%M:%S)" "killer" "$SERVICE" "KILLED" >> "$LOG_DIR/monitor.log"
+            kill "$RANDOM_PID" 2>/dev/null
+        else
+            continue
+        fi
+    fi
+    sleep 30
+done

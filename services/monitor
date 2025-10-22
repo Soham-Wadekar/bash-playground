@@ -1,2 +1,27 @@
-#! /bin/bash
+#!/bin/bash
 
+source ./config/playground.env
+
+SERVICES=$(ls ./services/ | grep -Ev "monitor|killer")
+
+restart_service() {
+    source ./config/playground.env
+    SERVICE=$1
+    printf "%s | %-8s | %-10s | %s\n" "$(date +%H:%M:%S)" "monitor" "$SERVICE" "RESTARTING" >> "$LOG_DIR/monitor.log"
+    ./services/$SERVICE "$LOG_DIR/$SERVICE.log" &
+    echo $! > "$PID_DIR/$SERVICE.pid"
+}
+
+while true; do
+    for service in ${SERVICES[@]}; do
+        PID=$(cat "$PID_DIR/$service.pid" 2>/dev/null)
+        if ps -p "$PID" >/dev/null 2>&1; then
+            printf "%s | %-8s | %-10s | %s\n" "$(date +%H:%M:%S)" "monitor" "$service" "ACTIVE" >> "$LOG_DIR/monitor.log"
+        else
+            printf "%s | %-8s | %-10s | %s\n" "$(date +%H:%M:%S)" "monitor" "$service" "DOWN" >> "$LOG_DIR/monitor.log"
+            sleep 1
+            restart_service "$service"
+        fi
+    done
+    sleep 10
+done
