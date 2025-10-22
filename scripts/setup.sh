@@ -4,5 +4,5 @@
 
 source ./config/playground.env
 
-mkdir $PROJECT_HOME
+mkdir -p $PROJECT_HOME
 mkdir -p $LOG_DIR $PID_DIR

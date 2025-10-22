@@ -5,4 +5,5 @@
 source ./config/playground.env
 
 rm -rf $PROJECT_HOME
-chmod -x *.sh
+
+chmod -x scripts/*.sh
