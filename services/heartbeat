@@ -1,6 +1,6 @@
 #! /bin/bash
 
-# This file produces an endless log of timestamps every 3 seconds and stores them inside a log file
+# Gives an update on whether the playground is active
 
 set -e
 trap 'echo "$(date +"%H:%M:%S") | Playground is inactive" >> "$1"; exit 0' SIGTERM
