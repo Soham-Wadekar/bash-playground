@@ -1,0 +1,18 @@
+#! /bin/bash
+
+source ./config/playground.env
+
+set -e
+trap 'echo "$(date +%H:%M:%S) | Stopping..." >> $1; exit 0' SIGTERM
+
+echo "$(date +%H:%M:%S) | Starting CPU stress test" >> $1
+
+while true; do
+    SUM=0
+    for i in {1..100000}; do
+        ((SUM += RANDOM % 100))
+    done
+
+    echo "$(date +%H:%M:%S) | Computed sum=$SUM" >> $1
+    # sleep 1
+done
