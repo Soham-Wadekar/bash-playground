@@ -14,5 +14,4 @@ while true; do
     done
 
     echo "$(date +%H:%M:%S) | Computed sum=$SUM" >> $1
-    # sleep 1
 done
