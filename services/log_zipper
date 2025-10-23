@@ -1,0 +1,22 @@
+#! /bin/bash
+
+sleep 10
+
+source ./config/playground.env
+
+set -e
+trap 'echo "$(date +%H:%M:%S) | Stopping..." >> $1; exit 0' SIGTERM
+
+MAX_SIZE=100000
+
+for file in "$LOG_DIR"/*.log; do
+    FILENAME=$(basename $file .log)
+    FILESIZE=$(stat -c%s $file)
+    
+    if (( FILESIZE > MAX_SIZE )); then
+        timestamp=$(date +%Y%m%d%H%M%S)
+        mv "$file" "$FILENAME.$timestamp.log"
+        gzip "$file.$timestamp"
+        echo "$(date +%H:%M:%S) | Zipping $FILENAME ($FILESIZE bytes)" >> $1
+    fi
+done
