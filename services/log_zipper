@@ -5,6 +5,8 @@ source ./config/playground.env
 set -e
 trap 'echo "$(date +%H:%M:%S) | Stopping..." >> $1; exit 0' SIGTERM
 
+echo "$(date +%H:%M:%S) | Starting..." >> $1
+
 MAX_SIZE=100000
 
 while true; do
