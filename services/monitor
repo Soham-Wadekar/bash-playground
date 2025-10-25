@@ -6,7 +6,7 @@ SERVICES=$(ls ./services/ | grep -Ev "monitor|killer")
 
 restart_service() {
     source ./config/playground.env
-    SERVICE=$1
+    SERVICE="$1"
     printf "%s | %-8s | %-10s | %s\n" "$(date +%H:%M:%S)" "monitor" "$SERVICE" "RESTARTING" >> "$LOG_DIR/monitor.log"
     ./services/$SERVICE "$LOG_DIR/$SERVICE.log" &
     echo $! > "$PID_DIR/$SERVICE.pid"

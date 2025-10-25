@@ -7,6 +7,6 @@ set -e
 while true; do
     DATE=$(date +"%H:%M:%S")
     TYPE=$(shuf -e -n1 DEBUG ERROR INFO WARN)
-    echo "$TYPE | $DATE | This is a test log" >> $1
+    echo "$TYPE | $DATE | This is a test log" >> "$1"
     sleep $(($RANDOM % 5 + 1))
 done

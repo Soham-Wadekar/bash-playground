@@ -3,9 +3,9 @@
 source ./config/playground.env
 
 set -e
-trap 'echo "$(date +%H:%M:%S) | Stopping..." >> $1; exit 0' SIGTERM
+trap 'echo "$(date +%H:%M:%S) | Stopping..." >> "$1"; exit 0' SIGTERM
 
-echo "$(date +%H:%M:%S) | Starting CPU stress test" >> $1
+echo "$(date +%H:%M:%S) | Starting CPU stress test" >> "$1"
 
 while true; do
     SUM=0
@@ -13,5 +13,5 @@ while true; do
         ((SUM += RANDOM % 100))
     done
 
-    echo "$(date +%H:%M:%S) | Computed sum=$SUM" >> $1
+    echo "$(date +%H:%M:%S) | Computed sum=$SUM" >> "$1"
 done

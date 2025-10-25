@@ -3,9 +3,9 @@
 source ./config/playground.env
 
 set -e
-trap 'echo "$(date +%H:%M:%S) | Stopping..." >> $1; exit 0' SIGTERM
+trap 'echo "$(date +%H:%M:%S) | Stopping..." >> "$1"; exit 0' SIGTERM
 
-echo "$(date +%H:%M:%S) | Starting..." >> $1
+echo "$(date +%H:%M:%S) | Starting..." >> "$1"
 
 ELAPSED_TIME=$((60*60))     # 60 minutes
 while true; do
@@ -16,7 +16,7 @@ while true; do
 
         if [ $((now-file_age)) -gt $ELAPSED_TIME ]; then
             rm $file
-            echo "$(date +%H:%M:%S) | Cleaning up... (Removed $(basename "$file"))" >> $1
+            echo "$(date +%H:%M:%S) | Cleaning up... (Removed $(basename "$file"))" >> "$1"
         fi
     done
     shopt -u nullglob

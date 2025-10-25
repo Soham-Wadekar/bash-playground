@@ -3,11 +3,11 @@
 # Gives an update on whether the playground is active
 
 set -e
-trap 'echo "$(date +"%H:%M:%S") | Playground is inactive" >> "$1"; exit 0' SIGTERM
+trap 'echo "$(date +"%H:%M:%S") | Playground is inactive" >> ""$1""; exit 0' SIGTERM
 
-echo "$(date +"%H:%M:%S") | Playground started" >> $1
+echo "$(date +"%H:%M:%S") | Playground started" >> "$1"
 while true; do
     DATE=$(date +"%H:%M:%S")
-    echo "$DATE | Playground is active" >> $1
+    echo "$DATE | Playground is active" >> "$1"
     sleep 3
 done

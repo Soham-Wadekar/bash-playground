@@ -3,9 +3,9 @@
 source ./config/playground.env
 
 set -e
-trap 'echo "$(date +%H:%M:%S) | Stopping..." >> $1; exit 0' SIGTERM
+trap 'echo "$(date +%H:%M:%S) | Stopping..." >> "$1"; exit 0' SIGTERM
 
-echo "$(date +%H:%M:%S) | Starting..." >> $1
+echo "$(date +%H:%M:%S) | Starting..." >> "$1"
 
 MAX_SIZE=100000
 
@@ -23,7 +23,7 @@ while true; do
             rotated="$LOG_DIR/${FILENAME}_$timestamp.log"
             mv "$file" "$rotated"
             gzip "$rotated"
-            echo "$(date +%H:%M:%S) | Zipped $FILENAME ($FILESIZE bytes)" >> $1
+            echo "$(date +%H:%M:%S) | Zipped $FILENAME ($FILESIZE bytes)" >> "$1"
             touch "$file"
         fi
     done
