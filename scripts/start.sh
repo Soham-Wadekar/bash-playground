@@ -7,9 +7,7 @@ source ./config/playground.env
 SERVICES=$(ls ./services/)
 
 for service in ${SERVICES[@]}; do
-    ./services/$service "$LOG_FILE" 2> >(while read -r line; do
-        echo "$(date +%Y-%m-%d\ %H:%M:%S) | $service | $line" >> "$ERR_FILE"
-    done) &
+    ./services/$service "$LOG_DIR/$service.log" >>"$LOG_DIR/$service.log" 2>&1 &
     echo "[$!] Starting $service service"
     echo $! > $PID_DIR/$service.pid
 done
