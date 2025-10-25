@@ -17,5 +17,5 @@ while true; do
             continue
         fi
     fi
-    sleep 30
+    sleep 60
 done
