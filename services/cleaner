@@ -9,6 +9,7 @@ echo "$(date +%H:%M:%S) | Starting..." >> $1
 
 ELAPSED_TIME=$((60*60))     # 60 minutes
 while true; do
+    shopt -s nullglob
     for file in "$LOG_DIR"/*.log.gz; do
         now=$(date +%s)
         file_age=$(stat -c %W $file)
@@ -18,5 +19,6 @@ while true; do
             echo "$(date +%H:%M:%S) | Cleaning up... (Removed $(basename "$file"))" >> $1
         fi
     done
+    shopt -u nullglob
     sleep 60
 done
